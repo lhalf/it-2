@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://5yqvopjeoaok"]
+
+[ext_resource type="PackedScene" uid="uid://h40fjfsa6v8v" path="res://components/movement/movement_input.tscn" id="1_iso5c"]
+[ext_resource type="Resource" uid="uid://cj8hvhcb3bh4k" path="res://player/movement_values.tres" id="2_t02tq"]
+[ext_resource type="PackedScene" uid="uid://bjc66xcukacor" path="res://components/movement/movement.tscn" id="2_tgg78"]
+[ext_resource type="PackedScene" uid="uid://dktptgf33y4i4" path="res://components/rotation/rotation_input.tscn" id="4_lwdsw"]
+[ext_resource type="Resource" uid="uid://drtj0pum07kbu" path="res://player/sensitivity.tres" id="5_nio6w"]
+[ext_resource type="PackedScene" uid="uid://cdsukjjbl85d7" path="res://components/rotation/rotation.tscn" id="6_ux4am"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ujarl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ihcks"]
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_ujarl")
+
+[node name="CS" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_ihcks")
+
+[node name="MovementInput" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_iso5c")]
+player = NodePath("..")
+movement_values = ExtResource("2_t02tq")
+
+[node name="Movement" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_tgg78")]
+player = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 3)
+
+[node name="RotationInput" parent="." instance=ExtResource("4_lwdsw")]
+sensitivity = ExtResource("5_nio6w")
+
+[node name="Rotation" parent="." node_paths=PackedStringArray("player", "rotation_input") instance=ExtResource("6_ux4am")]
+player = NodePath("..")
+rotation_input = NodePath("../RotationInput")
