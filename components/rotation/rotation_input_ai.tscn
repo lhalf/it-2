@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ngw76r6hn8i"]
+
+[ext_resource type="Script" path="res://components/rotation/rotation_input_ai.gd" id="1_b7pq6"]
+
+[node name="RotationInputAI" type="Node"]
+script = ExtResource("1_b7pq6")
