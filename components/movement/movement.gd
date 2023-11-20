@@ -1,5 +1,4 @@
-class_name Movement
-extends Node
+class_name Movement extends Node
 
 @export var player: CharacterBody3D
 
