@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RotationValues" load_steps=2 format=3 uid="uid://dadwqrf7uiqnn"]
+
+[ext_resource type="Script" path="res://components/rotation/rotation_values.gd" id="1_egyep"]
+
+[resource]
+script = ExtResource("1_egyep")
+sensitivity = 0.5
+clamp_angle_degrees = 35

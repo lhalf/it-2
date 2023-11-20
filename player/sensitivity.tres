@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="Sensitivity" load_steps=2 format=3 uid="uid://drtj0pum07kbu"]
-
-[ext_resource type="Script" path="res://components/rotation/sensitivity.gd" id="1_qp6oa"]
-
-[resource]
-script = ExtResource("1_qp6oa")
-sensitivity = 1

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ngw76r6hn8i"]
+
+[ext_resource type="Script" path="res://components/rotation/ai_rotation.gd" id="1_yjns3"]
+
+[node name="AIRotation" type="Node"]
+script = ExtResource("1_yjns3")

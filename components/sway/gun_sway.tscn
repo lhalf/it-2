@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nw31im0p0exs"]
+
+[ext_resource type="Script" path="res://components/sway/gun_sway.gd" id="1_gnhhk"]
+
+[node name="GunSway" type="Node"]
+script = ExtResource("1_gnhhk")

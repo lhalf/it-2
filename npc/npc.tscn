@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://rgob7nwqjwv4"]
-
-[ext_resource type="PackedScene" uid="uid://d1ngw76r6hn8i" path="res://components/rotation/rotation_input_ai.tscn" id="1_b4xie"]
+[gd_scene load_steps=3 format=3 uid="uid://rgob7nwqjwv4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rrljm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y0a0p"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_idmjj"]
-size = Vector3(10, 1, 10)
 
 [node name="NPC" type="CharacterBody3D"]
 
@@ -18,13 +13,3 @@ mesh = SubResource("BoxMesh_rrljm")
 [node name="CS" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_y0a0p")
-
-[node name="RotationInputAI" parent="." node_paths=PackedStringArray("npc", "vision_area") instance=ExtResource("1_b4xie")]
-npc = NodePath("..")
-vision_area = NodePath("Vision")
-
-[node name="Vision" type="Area3D" parent="RotationInputAI"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="CS" type="CollisionShape3D" parent="RotationInputAI/Vision"]
-shape = SubResource("BoxShape3D_idmjj")

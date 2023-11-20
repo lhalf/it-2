@@ -1,4 +1,4 @@
-class_name RotationInputAI extends RotationInputBase
+class_name AIRotation extends Node
 
 @export var npc: CharacterBody3D
 @export var vision_area: Area3D

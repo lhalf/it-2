@@ -1,17 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://5yqvopjeoaok"]
+[gd_scene load_steps=11 format=3 uid="uid://5yqvopjeoaok"]
 
-[ext_resource type="PackedScene" uid="uid://h40fjfsa6v8v" path="res://components/movement/movement_input_player.tscn" id="1_iso5c"]
+[ext_resource type="Resource" uid="uid://dadwqrf7uiqnn" path="res://player/rotation_values.tres" id="2_cdcy0"]
 [ext_resource type="Resource" uid="uid://cj8hvhcb3bh4k" path="res://player/movement_values.tres" id="2_t02tq"]
-[ext_resource type="PackedScene" uid="uid://bjc66xcukacor" path="res://components/movement/movement.tscn" id="2_tgg78"]
-[ext_resource type="PackedScene" uid="uid://dktptgf33y4i4" path="res://components/rotation/rotation_input_player.tscn" id="4_lwdsw"]
-[ext_resource type="Resource" uid="uid://drtj0pum07kbu" path="res://player/sensitivity.tres" id="5_nio6w"]
-[ext_resource type="PackedScene" uid="uid://cdsukjjbl85d7" path="res://components/rotation/rotation.tscn" id="6_ux4am"]
+[ext_resource type="PackedScene" uid="uid://h40fjfsa6v8v" path="res://components/movement/player_movement.tscn" id="2_w0owt"]
+[ext_resource type="PackedScene" uid="uid://c6ve7axpiwvso" path="res://components/rotation/player_rotation.tscn" id="3_kdg6d"]
+[ext_resource type="PackedScene" uid="uid://d2fy6mwyo0lcs" path="res://gun/assets/shotgun.glb" id="5_iwiev"]
+[ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/gun_sway_values.tres" id="6_kr8os"]
+[ext_resource type="PackedScene" uid="uid://nw31im0p0exs" path="res://components/sway/gun_sway.tscn" id="6_qat78"]
+[ext_resource type="PackedScene" uid="uid://cknuqpvrg3bd7" path="res://components/movement/player_jump.tscn" id="7_by862"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ujarl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ihcks"]
 
 [node name="Player" type="CharacterBody3D"]
+
+[node name="PlayerMovement" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_w0owt")]
+player = NodePath("..")
+movement_values = ExtResource("2_t02tq")
+
+[node name="PlayerRotation" parent="." node_paths=PackedStringArray("player", "head") instance=ExtResource("3_kdg6d")]
+player = NodePath("..")
+head = NodePath("../Head")
+rotation_values = ExtResource("2_cdcy0")
+
+[node name="GunSway" parent="." node_paths=PackedStringArray("player", "head", "hand", "hand_location") instance=ExtResource("6_qat78")]
+player = NodePath("..")
+head = NodePath("../Head")
+hand = NodePath("../Head/Hand")
+hand_location = NodePath("../Head/HandLocation")
+gun_sway_values = ExtResource("6_kr8os")
+
+[node name="PlayerJump" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_by862")]
+player = NodePath("..")
+movement_values = ExtResource("2_t02tq")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -21,19 +43,17 @@ mesh = SubResource("BoxMesh_ujarl")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_ihcks")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 3)
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0223, -0.496341)
 
-[node name="Movement" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_tgg78")]
-player = NodePath("..")
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0179802)
 
-[node name="MovementInputPlayer" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_iso5c")]
-player = NodePath("..")
-movement_values = ExtResource("2_t02tq")
+[node name="HandLocation" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 
-[node name="Rotation" parent="." node_paths=PackedStringArray("player", "rotation_input") instance=ExtResource("6_ux4am")]
-player = NodePath("..")
-rotation_input = NodePath("../RotationInputPlayer")
+[node name="Hand" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 
-[node name="RotationInputPlayer" parent="." instance=ExtResource("4_lwdsw")]
-sensitivity = ExtResource("5_nio6w")
+[node name="Gun" parent="Head/Hand" instance=ExtResource("5_iwiev")]
+transform = Transform3D(-1.68289e-08, 0, 0.385, 0, 0.385, 0, -0.385, 0, -1.68289e-08, 0, 0, 0)
