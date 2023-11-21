@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwm1exnpcne01"]
+
+[ext_resource type="Script" path="res://components/gun/gun_shoot.gd" id="1_jjn5f"]
+
+[node name="GunShoot" type="Node"]
+script = ExtResource("1_jjn5f")
