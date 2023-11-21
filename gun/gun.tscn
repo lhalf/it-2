@@ -201,7 +201,7 @@ font_size = 6
 transparency = 1
 albedo_texture = ExtResource("3_8sdsx")
 emission_enabled = true
-emission_energy_multiplier = 4.0
+emission_energy_multiplier = 10.0
 emission_texture = ExtResource("3_8sdsx")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8qs1e"]
