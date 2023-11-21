@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_egyep")
 sensitivity = 0.5
-clamp_angle_degrees = 35
+clamp_angle_degrees = 55

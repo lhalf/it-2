@@ -4,10 +4,10 @@
 [ext_resource type="Resource" uid="uid://cj8hvhcb3bh4k" path="res://player/movement_values.tres" id="2_t02tq"]
 [ext_resource type="PackedScene" uid="uid://h40fjfsa6v8v" path="res://components/movement/player_movement.tscn" id="2_w0owt"]
 [ext_resource type="PackedScene" uid="uid://c6ve7axpiwvso" path="res://components/rotation/player_rotation.tscn" id="3_kdg6d"]
-[ext_resource type="PackedScene" uid="uid://d2fy6mwyo0lcs" path="res://gun/assets/shotgun.glb" id="5_iwiev"]
 [ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/gun_sway_values.tres" id="6_kr8os"]
-[ext_resource type="PackedScene" uid="uid://nw31im0p0exs" path="res://components/sway/gun_sway.tscn" id="6_qat78"]
+[ext_resource type="PackedScene" uid="uid://nw31im0p0exs" path="res://components/gun/gun_sway.tscn" id="6_qat78"]
 [ext_resource type="PackedScene" uid="uid://cknuqpvrg3bd7" path="res://components/movement/player_jump.tscn" id="7_by862"]
+[ext_resource type="PackedScene" uid="uid://c8gllvyryckdn" path="res://gun/gun.tscn" id="8_cv035"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ujarl"]
 
@@ -55,5 +55,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 
-[node name="Gun" parent="Head/Hand" instance=ExtResource("5_iwiev")]
-transform = Transform3D(-1.68289e-08, 0, 0.385, 0, 0.385, 0, -0.385, 0, -1.68289e-08, 0, 0, 0)
+[node name="Gun" parent="Head/Hand" instance=ExtResource("8_cv035")]
