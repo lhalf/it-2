@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://dbwt0mc6of4o0"]
+
+[ext_resource type="PackedScene" uid="uid://swdx5sfmcoar" path="res://boombox/assets/boombox.glb" id="1_jccog"]
+[ext_resource type="AudioStream" uid="uid://c86kur0txgcfg" path="res://boombox/tracks/music_zool.mp3" id="3_cb3uf"]
+[ext_resource type="AudioStream" uid="uid://b4hwc8btihlot" path="res://boombox/assets/rewind.wav" id="3_i28cp"]
+[ext_resource type="Script" path="res://components/object/knockback_controller.gd" id="5_2rux1"]
+[ext_resource type="AudioStream" uid="uid://cweug0247uamq" path="res://boombox/tracks/music_F1.mp3" id="6_3rlpv"]
+[ext_resource type="Script" path="res://components/object/hit_controller.gd" id="6_hpdmm"]
+[ext_resource type="Script" path="res://boombox/track_controller.gd" id="7_tr1ul"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4gu2e"]
+bounce = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rt34r"]
+size = Vector3(2, 0.9, 0.695)
+
+[sub_resource type="Animation" id="Animation_kmhmk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2, 0.2, 0.2)]
+}
+
+[sub_resource type="Animation" id="Animation_whlev"]
+resource_name = "playing"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.2, 0.2, 0.2), Vector3(0.21, 0.21, 0.21)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s7j1k"]
+_data = {
+"RESET": SubResource("Animation_kmhmk"),
+"playing": SubResource("Animation_whlev")
+}
+
+[sub_resource type="Curve" id="Curve_a30j0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.803571, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0700935), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lw5bb"]
+curve = SubResource("Curve_a30j0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kxhil"]
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 5, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_min = 5.0
+scale_max = 7.0
+scale_curve = SubResource("CurveTexture_lw5bb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58htj"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.541176)
+
+[sub_resource type="TextMesh" id="TextMesh_x3rax"]
+material = SubResource("StandardMaterial3D_58htj")
+text = "♫"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_doa07"]
+streams_count = 2
+random_pitch = 1.0
+random_volume_offset_db = 1.0
+stream_0/stream = ExtResource("3_cb3uf")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("6_3rlpv")
+stream_1/weight = 1.0
+
+[node name="BoomBox" type="RigidBody3D"]
+mass = 0.1
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.45, 0)
+physics_material_override = SubResource("PhysicsMaterial_4gu2e")
+
+[node name="Mesh" parent="." instance=ExtResource("1_jccog")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="CS" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.0942066)
+shape = SubResource("BoxShape3D_rt34r")
+
+[node name="Playing" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s7j1k")
+}
+
+[node name="MusicParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+amount = 2
+lifetime = 0.5
+speed_scale = 0.5
+process_material = SubResource("ParticleProcessMaterial_kxhil")
+draw_pass_1 = SubResource("TextMesh_x3rax")
+
+[node name="Rewind" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_i28cp")
+
+[node name="HitController" type="Node3D" parent="." node_paths=PackedStringArray("controllers")]
+script = ExtResource("6_hpdmm")
+controllers = [NodePath("../KnockbackController"), NodePath("../TrackController")]
+
+[node name="KnockbackController" type="Node3D" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("5_2rux1")
+object = NodePath("..")
+
+[node name="TrackController" type="Node3D" parent="." node_paths=PackedStringArray("animation", "particles", "rewind", "tracks")]
+script = ExtResource("7_tr1ul")
+animation = NodePath("../Playing")
+particles = NodePath("../MusicParticles")
+rewind = NodePath("../Rewind")
+tracks = NodePath("Tracks")
+
+[node name="Tracks" type="AudioStreamPlayer3D" parent="TrackController"]
+stream = SubResource("AudioStreamRandomizer_doa07")
+max_db = 1.0

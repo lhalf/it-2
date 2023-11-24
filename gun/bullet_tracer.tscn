@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc28npcwqfwt"]
+
+[ext_resource type="Script" path="res://gun/bullet_tracer.gd" id="1_tkogq"]
+
+[node name="BulletTracer" type="MeshInstance3D"]
+script = ExtResource("1_tkogq")
