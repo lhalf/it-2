@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://5yqvopjeoaok"]
+[gd_scene load_steps=12 format=3 uid="uid://5yqvopjeoaok"]
 
+[ext_resource type="Script" path="res://components/rotation/player_rotation.gd" id="1_xm5o2"]
 [ext_resource type="Resource" uid="uid://dadwqrf7uiqnn" path="res://player/rotation_values.tres" id="2_cdcy0"]
 [ext_resource type="Resource" uid="uid://cj8hvhcb3bh4k" path="res://player/movement_values.tres" id="2_t02tq"]
-[ext_resource type="PackedScene" uid="uid://h40fjfsa6v8v" path="res://components/movement/player_movement.tscn" id="2_w0owt"]
-[ext_resource type="PackedScene" uid="uid://c6ve7axpiwvso" path="res://components/rotation/player_rotation.tscn" id="3_kdg6d"]
+[ext_resource type="Script" path="res://components/movement/player_movement.gd" id="3_iwsk8"]
+[ext_resource type="Script" path="res://components/movement/player_jump.gd" id="5_kmqyg"]
 [ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/gun_sway_values.tres" id="6_kr8os"]
-[ext_resource type="PackedScene" uid="uid://nw31im0p0exs" path="res://components/gun/gun_sway.tscn" id="6_qat78"]
-[ext_resource type="PackedScene" uid="uid://cknuqpvrg3bd7" path="res://components/movement/player_jump.tscn" id="7_by862"]
-[ext_resource type="PackedScene" uid="uid://c8gllvyryckdn" path="res://gun/gun.tscn" id="8_cv035"]
+[ext_resource type="Script" path="res://components/gun/player_shoot.gd" id="7_a2dic"]
+[ext_resource type="Script" path="res://components/gun/gun_sway.gd" id="8_1i3fb"]
+[ext_resource type="PackedScene" uid="uid://djpt8mgu6k3ra" path="res://gun/shotgun.tscn" id="8_cv035"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ujarl"]
 
@@ -15,23 +16,19 @@
 
 [node name="Player" type="CharacterBody3D"]
 
-[node name="PlayerMovement" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_w0owt")]
-player = NodePath("..")
-movement_values = ExtResource("2_t02tq")
-
-[node name="PlayerRotation" parent="." node_paths=PackedStringArray("player", "head") instance=ExtResource("3_kdg6d")]
+[node name="PlayerRotation" type="Node" parent="." node_paths=PackedStringArray("player", "head")]
+script = ExtResource("1_xm5o2")
 player = NodePath("..")
 head = NodePath("../Head")
 rotation_values = ExtResource("2_cdcy0")
 
-[node name="GunSway" parent="." node_paths=PackedStringArray("player", "head", "hand", "hand_location") instance=ExtResource("6_qat78")]
+[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("3_iwsk8")
 player = NodePath("..")
-head = NodePath("../Head")
-hand = NodePath("../Head/Hand")
-hand_location = NodePath("../Head/HandLocation")
-gun_sway_values = ExtResource("6_kr8os")
+movement_values = ExtResource("2_t02tq")
 
-[node name="PlayerJump" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_by862")]
+[node name="PlayerJump" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_kmqyg")
 player = NodePath("..")
 movement_values = ExtResource("2_t02tq")
 
@@ -49,10 +46,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0223, -0.496341)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0179802)
 
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 0, 100)
+
 [node name="HandLocation" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.68, -0.36)
 
-[node name="Gun" parent="Head/Hand" instance=ExtResource("8_cv035")]
+[node name="Shotgun" parent="Head/Hand" instance=ExtResource("8_cv035")]
+
+[node name="PlayerShoot" type="Node" parent="Head/Hand" node_paths=PackedStringArray("camera_ray", "gun")]
+script = ExtResource("7_a2dic")
+camera_ray = NodePath("../../Camera3D/RayCast3D")
+gun = NodePath("../Shotgun")
+
+[node name="GunSway" type="Node" parent="Head/Hand" node_paths=PackedStringArray("player", "head", "hand", "hand_location")]
+script = ExtResource("8_1i3fb")
+player = NodePath("../../..")
+head = NodePath("../..")
+hand = NodePath("..")
+hand_location = NodePath("../../HandLocation")
+gun_sway_values = ExtResource("6_kr8os")

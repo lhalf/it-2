@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2kgiehp8xoq"]
+[gd_scene load_steps=6 format=3 uid="uid://b2kgiehp8xoq"]
 
 [ext_resource type="PackedScene" uid="uid://daojn5tylb4gf" path="res://map.tscn" id="1_3kdsp"]
 [ext_resource type="Script" path="res://game.gd" id="1_qqeuh"]
 [ext_resource type="PackedScene" uid="uid://5yqvopjeoaok" path="res://player/player.tscn" id="2_msy3s"]
 [ext_resource type="PackedScene" uid="uid://rgob7nwqjwv4" path="res://npc/npc.tscn" id="4_2oju1"]
+[ext_resource type="PackedScene" uid="uid://dbwt0mc6of4o0" path="res://boombox/boombox.tscn" id="5_lwuev"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_qqeuh")
@@ -14,3 +15,6 @@ script = ExtResource("1_qqeuh")
 
 [node name="NPC" parent="." instance=ExtResource("4_2oju1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -3)
+
+[node name="BoomBox" parent="." instance=ExtResource("5_lwuev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74235, 0, -7.05648)

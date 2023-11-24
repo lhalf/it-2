@@ -1,14 +1,28 @@
 class_name GunShoot extends Node
 
-@export var animation_player: AnimationPlayer
+@export var shoot_animations: AnimationPlayer
+@export var eject_shell: GPUParticles3D
+@export var audio: AudioStreamPlayer3D
+@export var gun_reload: GunReload
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.is_action_pressed("shoot_right"):
-			animation_player.play("shoot_right")
-		if event.is_action_pressed("shoot_left"):
-			animation_player.play("shoot_left")
+func shoot_right() -> void:
+	gun_reload.right_loaded = false
+	_play_shoot_audio()
+	_eject_shell()
+	shoot_animations.play("shoot_right")
+	gun_reload.reload_right()
 
-func _process(_delta: float) -> void:
-	if (Input.is_action_pressed("shoot_right") and Input.is_action_just_pressed("shoot_left")) or (Input.is_action_just_pressed("shoot_right") and Input.is_action_pressed("shoot_left")):
-		print("double")
+func shoot_left() -> void:
+	gun_reload.left_loaded = false
+	_play_shoot_audio()
+	_eject_shell()
+	shoot_animations.play("shoot_left")
+	gun_reload.reload_left()
+
+func _play_shoot_audio() -> void:
+	audio.seek(0.0)
+	audio.play()
+
+func _eject_shell() -> void:
+	eject_shell.restart()
+	eject_shell.emitting = true

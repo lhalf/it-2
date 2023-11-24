@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cknuqpvrg3bd7"]
-
-[ext_resource type="Script" path="res://components/movement/player_jump.gd" id="1_8kvtw"]
-
-[node name="PlayerJump" type="Node"]
-script = ExtResource("1_8kvtw")
