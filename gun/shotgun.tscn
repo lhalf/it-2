@@ -1,7 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://djpt8mgu6k3ra"]
 
 [ext_resource type="Script" path="res://gun/shotgun.gd" id="1_cdwa4"]
-[ext_resource type="Script" path="res://gun/gun_interactable.gd" id="2_3ls1k"]
 [ext_resource type="Script" path="res://components/gun/gun_input.gd" id="2_ddmqr"]
 [ext_resource type="Script" path="res://components/gun/gun_reload.gd" id="2_r6f16"]
 [ext_resource type="Texture2D" uid="uid://k17s0p35qolf" path="res://gun/assets/muzzle_flash.png" id="3_8sdsx"]
@@ -419,6 +418,13 @@ _data = {
 "shoot_right": SubResource("Animation_gqqh0")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y78o1"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_tbatl")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 3.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h76cp"]
 transparency = 1
 albedo_texture = ExtResource("3_8sdsx")
@@ -431,9 +437,7 @@ material = SubResource("StandardMaterial3D_h76cp")
 
 [node name="Shotgun" type="Node3D"]
 script = ExtResource("1_cdwa4")
-
-[node name="Interactable" type="Node3D" parent="."]
-script = ExtResource("2_3ls1k")
+dropped_object_path = "res://gun/shotgun_object.tscn"
 
 [node name="GunInput" type="Node" parent="." node_paths=PackedStringArray("gun_reload", "gun_shoot", "gun")]
 script = ExtResource("2_ddmqr")
@@ -532,6 +536,7 @@ texture = ExtResource("6_c54ae")
 
 [node name="Mesh" parent="." instance=ExtResource("8_63kke")]
 transform = Transform3D(-0.0001448, -40, -0.0001448, 0, -0.0001448, 40, -40, 0.0001448, 5.24173e-10, 0, 0, 0)
+material_overlay = SubResource("ShaderMaterial_y78o1")
 
 [node name="LeftTip" type="Marker3D" parent="Mesh"]
 transform = Transform3D(1.09279e-09, -9.55343e-17, -0.025, 0.025, -1.09278e-09, 1.09278e-09, -1.09279e-09, -0.025, 4.77671e-17, 0.0329082, 0.000896976, 0.00408073)

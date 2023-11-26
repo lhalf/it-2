@@ -10,8 +10,8 @@
 [ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/gun_sway_values.tres" id="6_kr8os"]
 [ext_resource type="Shader" path="res://shaders/toon.gdshader" id="7_dwp3b"]
 [ext_resource type="Script" path="res://components/gun/gun_sway.gd" id="8_1i3fb"]
-[ext_resource type="PackedScene" uid="uid://djpt8mgu6k3ra" path="res://gun/shotgun.tscn" id="8_cv035"]
 [ext_resource type="Script" path="res://player/player_interact.gd" id="8_tqqtp"]
+[ext_resource type="PackedScene" uid="uid://d0qe7neyr1g8t" path="res://sword/sword.tscn" id="12_lf6ru"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dngy1"]
 render_priority = 0
@@ -90,7 +90,7 @@ gun_sway_values = ExtResource("6_kr8os")
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.632932, -0.197229)
 
-[node name="Shotgun" parent="Head/Hand" instance=ExtResource("8_cv035")]
+[node name="Sword" parent="Head/Hand" instance=ExtResource("12_lf6ru")]
 
 [node name="CrossHair" type="ColorRect" parent="."]
 anchors_preset = 8
