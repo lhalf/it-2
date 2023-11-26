@@ -1,23 +1,21 @@
-class_name GunShoot extends Node
+class_name GunShoot extends Node3D
 
 @export var shoot_animations: AnimationPlayer
 @export var eject_shell: GPUParticles3D
 @export var audio: AudioStreamPlayer3D
-@export var gun_reload: GunReload
+@export var knockback: GunKnockback
 
 func shoot_right() -> void:
-	gun_reload.right_loaded = false
+	knockback.apply_to_parent()
 	_play_shoot_audio()
 	_eject_shell()
 	shoot_animations.play("shoot_right")
-	gun_reload.reload_right()
 
 func shoot_left() -> void:
-	gun_reload.left_loaded = false
+	knockback.apply_to_parent()
 	_play_shoot_audio()
 	_eject_shell()
 	shoot_animations.play("shoot_left")
-	gun_reload.reload_left()
 
 func _play_shoot_audio() -> void:
 	audio.seek(0.0)
