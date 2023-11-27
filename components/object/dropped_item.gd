@@ -1,4 +1,4 @@
-class_name CanPickUp extends Node3D
+class_name DroppedItem extends Node3D
 
 @export var mesh: MeshInstance3D
 @export_file("*.tscn") var pickup_object_path

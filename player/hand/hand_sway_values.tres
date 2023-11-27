@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GunSwayValues" load_steps=2 format=3 uid="uid://bq42c11rdkebe"]
 
-[ext_resource type="Script" path="res://components/gun/gun_sway_values.gd" id="1_jusjt"]
+[ext_resource type="Script" path="res://player/hand/hand_sway_values.gd" id="1_jusjt"]
 
 [resource]
 script = ExtResource("1_jusjt")

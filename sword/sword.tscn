@@ -1,8 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0qe7neyr1g8t"]
+[gd_scene load_steps=8 format=3 uid="uid://d0qe7neyr1g8t"]
 
 [ext_resource type="Script" path="res://sword/sword.gd" id="1_o77cw"]
 [ext_resource type="PackedScene" uid="uid://o0lapoygasfb" path="res://sword/sword_mesh.tscn" id="1_qxytu"]
 [ext_resource type="Script" path="res://components/melee/melee_attack.gd" id="3_ybdfl"]
+[ext_resource type="PackedScene" uid="uid://dy8bkvq2rsd4e" path="res://player/hand/hand_mesh.tscn" id="4_cwo5l"]
+
+[sub_resource type="Animation" id="Animation_y4vn8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.06935, -3.14159, 1.5708)]
+}
 
 [sub_resource type="Animation" id="Animation_jugk7"]
 resource_name = "attack_left"
@@ -32,45 +60,23 @@ tracks/1/keys = {
 "values": [Vector3(-1.06935, -3.14159, 1.5708), Vector3(-0.017785, -3.14159, 1.5708), Vector3(-0.0207056, -3.14159, 1.5708), Vector3(-1.06935, -3.14159, 1.5708)]
 }
 
-[sub_resource type="Animation" id="Animation_y4vn8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Mesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Mesh:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.06935, -3.14159, 1.5708)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7uena"]
 _data = {
 "RESET": SubResource("Animation_y4vn8"),
 "attack_left": SubResource("Animation_jugk7")
 }
 
-[node name="Sword" type="Node3D"]
+[node name="Sword" type="Node3D" node_paths=PackedStringArray("melee_attack")]
 script = ExtResource("1_o77cw")
+melee_attack = NodePath("MeleeAttack")
 dropped_object_path = "res://sword/sword_object.tscn"
 
 [node name="Mesh" parent="." instance=ExtResource("1_qxytu")]
-transform = Transform3D(1.23282e-05, 70, -5.08083e-06, 33.6488, -1.47084e-06, 61.382, 61.382, -1.32528e-05, -33.6488, 0, 0, 0)
+transform = Transform3D(0.000409014, 70, -8.53052e-05, 33.6486, -0.000121808, 61.3821, 61.3821, -0.000399666, -33.6486, 0, 0, 0)
+
+[node name="HandMesh" parent="Mesh" instance=ExtResource("4_cwo5l")]
+transform = Transform3D(8.34724e-08, 0.00686708, 0.012527, 0.0142857, -2.48587e-08, -8.15644e-08, -1.74093e-08, 0.012527, -0.00686708, 0, 0, 0)
+skeleton = NodePath("../..")
 
 [node name="MeleeAttack" type="Node3D" parent="." node_paths=PackedStringArray("animations")]
 script = ExtResource("3_ybdfl")

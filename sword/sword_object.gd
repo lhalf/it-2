@@ -1,1 +1,1 @@
-class_name SwordObject extends CanPickUp
+class_name SwordObject extends DroppedItem

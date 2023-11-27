@@ -1,4 +1,4 @@
-class_name CanDrop extends Node3D
+class_name HeldItem extends Node3D
 
 @export_file("*_object.tscn") var dropped_object_path
 var dropped_object: PackedScene
@@ -12,3 +12,9 @@ func drop() -> void:
 	object_to_drop.rotation = get_parent().global_rotation
 	object_to_drop.linear_velocity = get_parent().owner.velocity
 	get_tree().root.add_child(object_to_drop)
+
+func on_left_input(camera_ray: RayCast3D) -> int:
+	return 0
+
+func on_right_input(camera_ray: RayCast3D) -> int:
+	return 0

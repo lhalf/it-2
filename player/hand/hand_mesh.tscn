@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy8bkvq2rsd4e"]
+
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="1_22dkk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktlnk"]
+render_priority = 0
+shader = ExtResource("1_22dkk")
+shader_parameter/outline_color = null
+shader_parameter/outline_width = 5.895
+
+[sub_resource type="SphereMesh" id="SphereMesh_qxe2t"]
+radius = 0.1
+height = 0.2
+
+[node name="HandMesh" type="MeshInstance3D"]
+material_overlay = SubResource("ShaderMaterial_ktlnk")
+mesh = SubResource("SphereMesh_qxe2t")
