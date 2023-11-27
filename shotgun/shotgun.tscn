@@ -417,7 +417,7 @@ _data = {
 "shoot_right": SubResource("Animation_gqqh0")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdt71"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8xs7"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_57ngp")
@@ -438,9 +438,8 @@ material = SubResource("StandardMaterial3D_h76cp")
 script = ExtResource("1_q3gpe")
 gun_reload = NodePath("GunReload")
 gun_shoot = NodePath("GunShoot")
-knockback = -50
+knockback = -30
 dropped_object_path = "res://shotgun/shotgun_object.tscn"
-force_from_use = null
 
 [node name="GunReload" type="Node3D" parent="." node_paths=PackedStringArray("left_animation", "right_animation", "left_reload_timer", "right_reload_timer")]
 script = ExtResource("4_sjxsb")
@@ -528,7 +527,7 @@ texture = ExtResource("8_r45ac")
 
 [node name="Mesh" parent="." instance=ExtResource("9_nnwk1")]
 transform = Transform3D(-0.0001448, -40, -0.0001448, 0, -0.0001448, 40, -40, 0.0001448, 5.24173e-10, 0, 0, 0)
-material_overlay = SubResource("ShaderMaterial_wdt71")
+material_overlay = SubResource("ShaderMaterial_k8xs7")
 
 [node name="HandMesh" parent="Mesh" instance=ExtResource("11_cejg0")]
 transform = Transform3D(-9.04998e-08, -2.71051e-20, -0.025, -0.025, -1.09279e-09, 9.04998e-08, -1.09279e-09, 0.025, 3.95587e-15, 0, 0, 0)

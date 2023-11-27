@@ -7,4 +7,4 @@ func on_left_input(camera_ray) -> int:
 	return 0
 	
 func on_right_input(camera_ray) -> int:
-	return 100
+	return 150
