@@ -230,7 +230,7 @@ controllers = [NodePath("../KnockbackController"), NodePath("../TrackController"
 [node name="KnockbackController" type="Node3D" parent="." node_paths=PackedStringArray("object")]
 script = ExtResource("5_2rux1")
 object = NodePath("..")
-amount = 0.7
+amount = 1.5
 
 [node name="TrackController" type="Node3D" parent="." node_paths=PackedStringArray("animation", "particles", "rewind", "tracks")]
 script = ExtResource("7_tr1ul")

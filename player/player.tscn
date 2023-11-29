@@ -51,9 +51,9 @@ interact_ray = NodePath("../Head/Camera3D/InteractRay")
 hand = NodePath("../Head/Hand")
 hand_mesh = NodePath("../Head/Hand/HandMesh")
 
-[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("camera_ray", "camera_point", "hand", "knockback")]
+[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("camera_ray_normal", "camera_point", "hand", "knockback")]
 script = ExtResource("8_52yry")
-camera_ray = NodePath("../Head/Camera3D/CameraRay")
+camera_ray_normal = NodePath("../Head/Camera3D/CameraRayNormal")
 camera_point = NodePath("../Head/Camera3D/CameraPoint")
 hand = NodePath("../Head/Hand")
 knockback = NodePath("../PlayerKnockback")
@@ -74,13 +74,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0223, -0.291273)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.173)
 fov = 90.0
 
-[node name="CameraRay" type="RayCast3D" parent="Head/Camera3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-target_position = Vector3(0, 0, 100)
-
 [node name="InteractRay" type="RayCast3D" parent="Head/Camera3D"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, 3)
+
+[node name="CameraRayNormal" type="RayCast3D" parent="Head/Camera3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 0, 1)
 
 [node name="CameraPoint" type="Marker3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.77643)

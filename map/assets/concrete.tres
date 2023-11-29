@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cpssh4r7m4rt0"]
+
+[ext_resource type="Texture2D" uid="uid://c6crgpq5jxn25" path="res://map/assets/concrete.png" id="1_3xdhm"]
+
+[resource]
+albedo_texture = ExtResource("1_3xdhm")
+uv1_triplanar = true
+uv1_world_triplanar = true

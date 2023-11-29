@@ -13,8 +13,8 @@ func drop() -> void:
 	object_to_drop.linear_velocity = get_parent().owner.velocity
 	get_tree().root.add_child(object_to_drop)
 
-func on_left_input(camera_ray: RayCast3D) -> int:
+func on_left_input(_camera_ray: RayCast3D) -> int:
 	return 0
 
-func on_right_input(camera_ray: RayCast3D) -> int:
+func on_right_input(_camera_ray: RayCast3D) -> int:
 	return 0

@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0qe7neyr1g8t"]
+[gd_scene load_steps=16 format=3 uid="uid://d0qe7neyr1g8t"]
 
 [ext_resource type="Script" path="res://sword/sword.gd" id="1_o77cw"]
 [ext_resource type="PackedScene" uid="uid://o0lapoygasfb" path="res://sword/sword_mesh.tscn" id="1_qxytu"]
 [ext_resource type="Script" path="res://components/melee/melee_attack.gd" id="3_ybdfl"]
 [ext_resource type="PackedScene" uid="uid://dy8bkvq2rsd4e" path="res://player/hand/hand_mesh.tscn" id="4_cwo5l"]
+[ext_resource type="Script" path="res://components/melee/hit_area.gd" id="4_o08ta"]
+[ext_resource type="Script" path="res://components/object/held_reload.gd" id="6_ptqpv"]
+[ext_resource type="Texture2D" uid="uid://bcy3dvyognn47" path="res://sword/assets/sword.png" id="7_kjv5f"]
 
 [sub_resource type="Animation" id="Animation_y4vn8"]
 length = 0.001
@@ -45,7 +48,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.3, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0878485, 0.448398, 0.71285), Vector3(0.059, 0.51373, -0.972417), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0.0878485, 0.448398, 0.71285), Vector3(-0.231, 0.514, -0.972), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -57,19 +60,111 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.3, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-1.06935, -3.14159, 1.5708), Vector3(-0.017785, -3.14159, 1.5708), Vector3(-0.0207056, -3.14159, 1.5708), Vector3(-1.06935, -3.14159, 1.5708)]
+"values": [Vector3(-1.06935, -3.14159, 1.5708), Vector3(-0.017785, -3.14159, 1.5708), Vector3(-0.020944, -2.83616, 1.5708), Vector3(-1.06935, -3.14159, 1.5708)]
+}
+
+[sub_resource type="Animation" id="Animation_f45bc"]
+resource_name = "attack_right"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.336, 0.514, -0.972), Vector3(-0.336, 0.514, -0.972), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.06935, -3.14159, 1.5708), Vector3(-0.0207056, -3.14159, 1.5708), Vector3(-0.0207056, -3.14159, 1.5708), Vector3(-1.06935, -3.14159, 1.5708)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7uena"]
 _data = {
 "RESET": SubResource("Animation_y4vn8"),
-"attack_left": SubResource("Animation_jugk7")
+"attack_left": SubResource("Animation_jugk7"),
+"attack_right": SubResource("Animation_f45bc")
 }
 
-[node name="Sword" type="Node3D" node_paths=PackedStringArray("melee_attack")]
+[sub_resource type="Animation" id="Animation_hapan"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../UI/Dash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_77n7c"]
+resource_name = "reload_right"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../UI/Dash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.0980392), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k4dwf"]
+_data = {
+"RESET": SubResource("Animation_hapan"),
+"reload_right": SubResource("Animation_77n7c")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sectm"]
+height = 0.0115284
+radius = 0.00323574
+
+[node name="Sword" type="Node3D" node_paths=PackedStringArray("melee_attack", "held_reload")]
 script = ExtResource("1_o77cw")
 melee_attack = NodePath("MeleeAttack")
+held_reload = NodePath("HeldReload")
+thrust_force = 30
 dropped_object_path = "res://sword/sword_object.tscn"
+
+[node name="MeleeAttack" type="Node3D" parent="." node_paths=PackedStringArray("animations", "hit_area")]
+script = ExtResource("3_ybdfl")
+animations = NodePath("AttackAnimations")
+hit_area = NodePath("../Mesh/HitArea")
+
+[node name="AttackAnimations" type="AnimationPlayer" parent="MeleeAttack"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_7uena")
+}
+
+[node name="HeldReload" type="Node3D" parent="." node_paths=PackedStringArray("right_animation")]
+script = ExtResource("6_ptqpv")
+right_animation = NodePath("ReloadRight")
+
+[node name="ReloadRight" type="AnimationPlayer" parent="HeldReload"]
+libraries = {
+"": SubResource("AnimationLibrary_k4dwf")
+}
 
 [node name="Mesh" parent="." instance=ExtResource("1_qxytu")]
 transform = Transform3D(0.000409014, 70, -8.53052e-05, 33.6486, -0.000121808, 61.3821, 61.3821, -0.000399666, -33.6486, 0, 0, 0)
@@ -78,12 +173,33 @@ transform = Transform3D(0.000409014, 70, -8.53052e-05, 33.6486, -0.000121808, 61
 transform = Transform3D(8.34724e-08, 0.00686708, 0.012527, 0.0142857, -2.48587e-08, -8.15644e-08, -1.74093e-08, 0.012527, -0.00686708, 0, 0, 0)
 skeleton = NodePath("../..")
 
-[node name="MeleeAttack" type="Node3D" parent="." node_paths=PackedStringArray("animations")]
-script = ExtResource("3_ybdfl")
-animations = NodePath("AttackAnimations")
+[node name="HitArea" type="Area3D" parent="Mesh"]
+monitoring = false
+script = ExtResource("4_o08ta")
 
-[node name="AttackAnimations" type="AnimationPlayer" parent="MeleeAttack"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_7uena")
-}
+[node name="CS" type="CollisionShape3D" parent="Mesh/HitArea"]
+transform = Transform3D(1, -2.98023e-08, 5.91172e-12, -1.36424e-12, -4.37112e-08, -1, 0, 1, -4.37112e-08, 0.000201544, -5.00086e-06, 0.0135155)
+shape = SubResource("CylinderShape3D_sectm")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Dash" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_left = -264.0
+offset_top = -294.0
+offset_right = 96.0
+offset_bottom = 66.0
+texture = ExtResource("7_kjv5f")

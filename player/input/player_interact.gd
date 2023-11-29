@@ -29,7 +29,7 @@ func _clear_highlight_if_valid_target() -> void:
 		highlight_target.stop_highlight()
 		highlight_target = null
 
-func _interact_with_object() -> void:	
+func _interact_with_object() -> void:
 	var object = interact_ray.get_collider()
 	
 	if object is DroppedItem:

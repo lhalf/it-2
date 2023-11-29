@@ -4,7 +4,7 @@ class_name DroppedItem extends Node3D
 @export_file("*.tscn") var pickup_object_path
 var pickup_object
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	pickup_object = load(pickup_object_path)
 
 func stop_highlight() -> void:

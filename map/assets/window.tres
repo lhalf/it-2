@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://oy53i7mlbhcj"]
+
+[ext_resource type="Texture2D" uid="uid://c6crgpq5jxn25" path="res://map/assets/concrete.png" id="1_7k2cl"]
+
+[resource]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.501961)
+albedo_texture = ExtResource("1_7k2cl")
+uv1_triplanar = true
+uv1_world_triplanar = true

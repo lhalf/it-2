@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://components/object/hit_controller.gd" id="2_u4x2t"]
 [ext_resource type="Shader" path="res://shaders/toon.gdshader" id="3_oav1x"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1e00"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_id1my"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_oav1x")
@@ -22,7 +22,7 @@ mesh = NodePath("Mesh")
 pickup_object_path = "res://shotgun/shotgun.tscn"
 
 [node name="Mesh" parent="." instance=ExtResource("1_0ggnw")]
-material_overlay = SubResource("ShaderMaterial_p1e00")
+material_overlay = SubResource("ShaderMaterial_id1my")
 
 [node name="CS" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.74846e-06, -40, -1.74846e-06, 0, -1.74846e-06, 40, -40, 1.74846e-06, 7.64274e-14, 0, 0, 0)
