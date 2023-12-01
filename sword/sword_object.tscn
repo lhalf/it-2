@@ -33,4 +33,3 @@ controllers = [NodePath("../KnockbackController")]
 [node name="KnockbackController" type="Node3D" parent="." node_paths=PackedStringArray("object")]
 script = ExtResource("4_12of0")
 object = NodePath("..")
-amount = 30.0

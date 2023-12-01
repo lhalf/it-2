@@ -9,7 +9,7 @@ func _ready() -> void:
 	rewind.connect("finished", _play)
 	_play()
 
-func on_hit(_point, _normal) -> void:
+func on_hit(_point, _normal, _force) -> void:
 	animation.stop()
 	particles.emitting = false
 	tracks.stop()

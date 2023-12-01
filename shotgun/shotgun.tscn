@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://djpt8mgu6k3ra"]
+[gd_scene load_steps=29 format=3 uid="uid://djpt8mgu6k3ra"]
 
 [ext_resource type="Script" path="res://shotgun/shotgun.gd" id="1_q3gpe"]
 [ext_resource type="Script" path="res://components/object/held_reload.gd" id="2_tckvw"]
@@ -15,7 +15,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Ammo1:modulate")
+tracks/0/path = NodePath("CanvasLayer/UI/Ammo1:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Ammo2:modulate")
+tracks/1/path = NodePath("CanvasLayer/UI/Ammo2:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -43,7 +43,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Ammo1:modulate")
+tracks/0/path = NodePath("CanvasLayer/UI/Ammo1:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -65,7 +65,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../UI/Ammo2:modulate")
+tracks/0/path = NodePath("../CanvasLayer/UI/Ammo2:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -116,7 +116,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Ammo1:position")
+tracks/0/path = NodePath("CanvasLayer/UI/Ammo1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -128,7 +128,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Ammo2:position")
+tracks/1/path = NodePath("CanvasLayer/UI/Ammo2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,7 +140,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/Ammo2:scale")
+tracks/2/path = NodePath("CanvasLayer/UI/Ammo2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -152,7 +152,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/Ammo1:scale")
+tracks/3/path = NodePath("CanvasLayer/UI/Ammo1:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -216,7 +216,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Ammo1:position")
+tracks/0/path = NodePath("CanvasLayer/UI/Ammo1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -228,7 +228,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Ammo2:position")
+tracks/1/path = NodePath("CanvasLayer/UI/Ammo2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -240,7 +240,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/Ammo2:scale")
+tracks/2/path = NodePath("CanvasLayer/UI/Ammo2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -252,7 +252,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/Ammo1:scale")
+tracks/3/path = NodePath("CanvasLayer/UI/Ammo1:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -316,7 +316,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Ammo1:position")
+tracks/0/path = NodePath("CanvasLayer/UI/Ammo1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -328,7 +328,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Ammo2:position")
+tracks/1/path = NodePath("CanvasLayer/UI/Ammo2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -340,7 +340,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/Ammo2:scale")
+tracks/2/path = NodePath("CanvasLayer/UI/Ammo2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -352,7 +352,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/Ammo1:scale")
+tracks/3/path = NodePath("CanvasLayer/UI/Ammo1:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -417,7 +417,7 @@ _data = {
 "shoot_right": SubResource("Animation_gqqh0")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kniv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01h83"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_57ngp")
@@ -434,16 +434,20 @@ emission_texture = ExtResource("10_gs1gd")
 [sub_resource type="QuadMesh" id="QuadMesh_cmcd4"]
 material = SubResource("StandardMaterial3D_h76cp")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_iohwq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Shotgun" type="Node3D" node_paths=PackedStringArray("held_reload", "gun_shoot")]
 script = ExtResource("1_q3gpe")
 held_reload = NodePath("HeldReload")
 gun_shoot = NodePath("GunShoot")
 knockback = -15
 dropped_object_path = "res://shotgun/shotgun_object.tscn"
-
-[node name="TipCast" type="RayCast3D" parent="."]
-transform = Transform3D(1.74846e-06, -40, -0.0001448, -40, -1.74846e-06, -1.74846e-06, 1.74845e-06, 0.0001448, -40, -2.29594e-13, 0.163661, -1.32552)
-target_position = Vector3(0, 0, 1)
 
 [node name="HeldReload" type="Node3D" parent="." node_paths=PackedStringArray("left_animation", "right_animation")]
 script = ExtResource("2_tckvw")
@@ -461,13 +465,13 @@ libraries = {
 "": SubResource("AnimationLibrary_v7g65")
 }
 
-[node name="GunShoot" type="Node3D" parent="." node_paths=PackedStringArray("shoot_animations", "eject_shell", "audio", "tip_cast")]
+[node name="GunShoot" type="Node3D" parent="." node_paths=PackedStringArray("shoot_animations", "eject_shell", "audio")]
 script = ExtResource("5_p6lag")
 shoot_animations = NodePath("ShootAnimations")
 eject_shell = NodePath("EjectShell")
 audio = NodePath("Shoot")
-tip_cast = NodePath("../TipCast")
 shot_range = 100
+force = 5.0
 
 [node name="Shoot" type="AudioStreamPlayer3D" parent="GunShoot"]
 stream = ExtResource("6_pxhu8")
@@ -490,40 +494,9 @@ libraries = {
 "": SubResource("AnimationLibrary_mw3e6")
 }
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.7, 0.7)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Ammo1" type="TextureRect" parent="UI"]
-layout_mode = 0
-offset_left = -346.0
-offset_top = -249.0
-offset_right = -8.0
-offset_bottom = 89.0
-texture = ExtResource("8_r45ac")
-
-[node name="Ammo2" type="TextureRect" parent="UI"]
-layout_mode = 0
-offset_left = -265.0
-offset_top = -218.0
-offset_right = 73.0
-offset_bottom = 120.0
-texture = ExtResource("8_r45ac")
-
 [node name="Mesh" parent="." instance=ExtResource("9_nnwk1")]
 transform = Transform3D(-0.0001448, -40, -0.0001448, 0, -0.0001448, 40, -40, 0.0001448, 5.24173e-10, 0, 0, 0)
-material_overlay = SubResource("ShaderMaterial_3kniv")
+material_overlay = SubResource("ShaderMaterial_01h83")
 
 [node name="HandMesh" parent="Mesh" instance=ExtResource("11_cejg0")]
 transform = Transform3D(-9.04998e-08, -2.71051e-20, -0.025, -0.025, -1.09279e-09, 9.04998e-08, -1.09279e-09, 0.025, 3.95587e-15, 0, 0, 0)
@@ -546,3 +519,39 @@ transform = Transform3D(0.223743, -0.974648, -4.26032e-08, 0, -4.37114e-08, 1, -
 visible = false
 mesh = SubResource("QuadMesh_cmcd4")
 skeleton = NodePath("../../..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Ammo1" type="TextureRect" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = -346.0
+offset_top = -249.0
+offset_right = -8.0
+offset_bottom = 89.0
+texture = ExtResource("8_r45ac")
+
+[node name="Ammo2" type="TextureRect" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = -265.0
+offset_top = -218.0
+offset_right = 73.0
+offset_bottom = 120.0
+texture = ExtResource("8_r45ac")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_iohwq")

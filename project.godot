@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="it2"
-run/main_scene="res://game.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+run/main_scene="res://components/gun/game.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/mode=2
 window/vsync/vsync_mode=2
 
 [filesystem]

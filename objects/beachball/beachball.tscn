@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://6mmrkhqbmyrl"]
+
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="1_6e8gv"]
+[ext_resource type="Script" path="res://components/object/hit_controller.gd" id="2_42bo5"]
+[ext_resource type="Script" path="res://components/object/knockback_controller.gd" id="3_t013i"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7082k"]
+bounce = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hvo84"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_20fwt"]
+render_priority = 0
+shader = ExtResource("1_6e8gv")
+shader_parameter/outline_color = null
+shader_parameter/outline_width = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cwdcs"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_klscq"]
+properties/0/path = NodePath(".:linear_velocity")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Beachball" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_7082k")
+
+[node name="CS" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_hvo84")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_overlay = SubResource("ShaderMaterial_20fwt")
+mesh = SubResource("SphereMesh_cwdcs")
+
+[node name="HitController" type="Node3D" parent="." node_paths=PackedStringArray("controllers")]
+script = ExtResource("2_42bo5")
+controllers = [NodePath("../KnockbackController")]
+
+[node name="KnockbackController" type="Node3D" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("3_t013i")
+object = NodePath("..")
+multiplier = 5.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_klscq")

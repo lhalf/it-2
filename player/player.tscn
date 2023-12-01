@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://djyv7q10y606j"]
+[gd_scene load_steps=24 format=3 uid="uid://djyv7q10y606j"]
 
+[ext_resource type="Script" path="res://player/player.gd" id="1_k40m3"]
 [ext_resource type="Script" path="res://player/movement/player_knockback.gd" id="2_1id62"]
 [ext_resource type="Resource" uid="uid://dadwqrf7uiqnn" path="res://player/rotation_values.tres" id="2_cdcy0"]
 [ext_resource type="Resource" uid="uid://cj8hvhcb3bh4k" path="res://player/movement_values.tres" id="2_t02tq"]
@@ -12,6 +13,8 @@
 [ext_resource type="Script" path="res://player/hand/hand_sway.gd" id="10_ud8ga"]
 [ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/hand/hand_sway_values.tres" id="11_521h0"]
 [ext_resource type="PackedScene" uid="uid://dy8bkvq2rsd4e" path="res://player/hand/hand_mesh.tscn" id="12_41au8"]
+[ext_resource type="Script" path="res://components/melee/hit_area.gd" id="13_m0bh3"]
+[ext_resource type="AudioStream" uid="uid://b3v7j8q4vot25" path="res://player/assets/tag.ogg" id="14_nrfyq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dngy1"]
 render_priority = 0
@@ -23,7 +26,57 @@ shader_parameter/outline_width = 5.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cndt3"]
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ltuj"]
+radius = 0.451115
+
+[sub_resource type="Animation" id="Animation_jchuh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Hands/LeftHandMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.885717, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ogl3w"]
+resource_name = "tag"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Hands/LeftHandMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.885717, 0, 0), Vector3(-0.432936, 0.621844, -2.14896), Vector3(-0.885717, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rea7e"]
+_data = {
+"RESET": SubResource("Animation_jchuh"),
+"tag": SubResource("Animation_ogl3w")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lke12"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_k40m3")
+camera = NodePath("Head/Camera3D")
 
 [node name="PlayerKnockback" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("2_1id62")
@@ -45,18 +98,21 @@ script = ExtResource("7_k06fk")
 player = NodePath("..")
 movement_values = ExtResource("2_t02tq")
 
-[node name="PlayerInteract" type="Node" parent="." node_paths=PackedStringArray("interact_ray", "hand", "hand_mesh")]
+[node name="PlayerInteract" type="Node" parent="." node_paths=PackedStringArray("interact_ray", "holding", "hand_mesh")]
 script = ExtResource("8_d17qq")
 interact_ray = NodePath("../Head/Camera3D/InteractRay")
-hand = NodePath("../Head/Hand")
-hand_mesh = NodePath("../Head/Hand/HandMesh")
+holding = NodePath("../Head/Hands/Holding")
+hand_mesh = NodePath("../Head/Hands/RightHandMesh")
 
-[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("camera_ray_normal", "camera_point", "hand", "knockback")]
+[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("camera_ray", "camera_point", "holding", "knockback", "tag_animation", "tag_area", "tag_sound")]
 script = ExtResource("8_52yry")
-camera_ray_normal = NodePath("../Head/Camera3D/CameraRayNormal")
+camera_ray = NodePath("../Head/Camera3D/CameraRay")
 camera_point = NodePath("../Head/Camera3D/CameraPoint")
-hand = NodePath("../Head/Hand")
+holding = NodePath("../Head/Hands/Holding")
 knockback = NodePath("../PlayerKnockback")
+tag_animation = NodePath("../Head/Hands/TagAnimation")
+tag_area = NodePath("../Head/Hands/LeftHandMesh/TagArea")
+tag_sound = NodePath("../Head/Hands/LeftHandMesh/Tag")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -78,9 +134,11 @@ fov = 90.0
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, 3)
 
-[node name="CameraRayNormal" type="RayCast3D" parent="Head/Camera3D"]
+[node name="CameraRay" type="RayCast3D" parent="Head/Camera3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, 1)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+debug_shape_thickness = 5
 
 [node name="CameraPoint" type="Marker3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.77643)
@@ -92,25 +150,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.632932, -0.197229)
 script = ExtResource("10_ud8ga")
 player = NodePath("../..")
 head = NodePath("..")
-hand = NodePath("../Hand")
+hand = NodePath("../Hands")
 hand_location = NodePath("../HandLocation")
 gun_sway_values = ExtResource("11_521h0")
 
-[node name="Hand" type="Node3D" parent="Head"]
+[node name="Hands" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.632932, -0.197229)
 
-[node name="HandMesh" parent="Head/Hand" instance=ExtResource("12_41au8")]
+[node name="RightHandMesh" parent="Head/Hands" instance=ExtResource("12_41au8")]
 
-[node name="CrossHair" type="ColorRect" parent="."]
+[node name="LeftHandMesh" parent="Head/Hands" instance=ExtResource("12_41au8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885717, 0, 0)
+
+[node name="TagArea" type="Area3D" parent="Head/Hands/LeftHandMesh"]
+monitoring = false
+script = ExtResource("13_m0bh3")
+force = 1.0
+
+[node name="CS" type="CollisionShape3D" parent="Head/Hands/LeftHandMesh/TagArea"]
+shape = SubResource("SphereShape3D_8ltuj")
+
+[node name="Tag" type="AudioStreamPlayer3D" parent="Head/Hands/LeftHandMesh"]
+stream = ExtResource("14_nrfyq")
+volume_db = 0.1
+max_db = 0.5
+
+[node name="TagAnimation" type="AnimationPlayer" parent="Head/Hands"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_rea7e")
+}
+
+[node name="Holding" type="Node3D" parent="Head/Hands"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CrossHair" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_top = -14.1422
+offset_right = 20.0
+offset_bottom = 5.85785
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.785398
@@ -118,3 +201,18 @@ pivot_offset = Vector2(10, 10)
 size_flags_horizontal = 6
 size_flags_vertical = 6
 color = Color(1, 1, 1, 0.333333)
+
+[node name="ScoreBoard" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ScoreBoard"]
+layout_mode = 2
+text = "score_board"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_lke12")
+
+[node name="HeldItemSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://shotgun/shotgun.tscn", "res://sword/sword.tscn")
+spawn_path = NodePath("../Head/Hands/Holding")

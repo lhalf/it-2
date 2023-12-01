@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0qe7neyr1g8t"]
+[gd_scene load_steps=18 format=3 uid="uid://d0qe7neyr1g8t"]
 
 [ext_resource type="Script" path="res://sword/sword.gd" id="1_o77cw"]
 [ext_resource type="PackedScene" uid="uid://o0lapoygasfb" path="res://sword/sword_mesh.tscn" id="1_qxytu"]
+[ext_resource type="AudioStream" uid="uid://b8nj1awso23ff" path="res://sword/assets/sword_thrust.wav" id="3_oybct"]
 [ext_resource type="Script" path="res://components/melee/melee_attack.gd" id="3_ybdfl"]
 [ext_resource type="PackedScene" uid="uid://dy8bkvq2rsd4e" path="res://player/hand/hand_mesh.tscn" id="4_cwo5l"]
+[ext_resource type="AudioStream" uid="uid://coiufwsf1v1ig" path="res://sword/assets/sword_normal.wav" id="4_jgjgl"]
 [ext_resource type="Script" path="res://components/melee/hit_area.gd" id="4_o08ta"]
 [ext_resource type="Script" path="res://components/object/held_reload.gd" id="6_ptqpv"]
 [ext_resource type="Texture2D" uid="uid://bcy3dvyognn47" path="res://sword/assets/sword.png" id="7_kjv5f"]
@@ -103,7 +105,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../UI/Dash:modulate")
+tracks/0/path = NodePath("../CanvasLayer/UI/Dash:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -119,7 +121,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../UI/Dash:modulate")
+tracks/0/path = NodePath("../CanvasLayer/UI/Dash:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -146,9 +148,10 @@ held_reload = NodePath("HeldReload")
 thrust_force = 30
 dropped_object_path = "res://sword/sword_object.tscn"
 
-[node name="MeleeAttack" type="Node3D" parent="." node_paths=PackedStringArray("animations", "hit_area")]
+[node name="MeleeAttack" type="Node3D" parent="." node_paths=PackedStringArray("animations", "right_sound", "hit_area")]
 script = ExtResource("3_ybdfl")
 animations = NodePath("AttackAnimations")
+right_sound = NodePath("SwordThrust")
 hit_area = NodePath("../Mesh/HitArea")
 
 [node name="AttackAnimations" type="AnimationPlayer" parent="MeleeAttack"]
@@ -156,6 +159,14 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_7uena")
 }
+
+[node name="SwordThrust" type="AudioStreamPlayer3D" parent="MeleeAttack"]
+stream = ExtResource("3_oybct")
+volume_db = 0.1
+
+[node name="SwordNormal" type="AudioStreamPlayer3D" parent="MeleeAttack"]
+stream = ExtResource("4_jgjgl")
+volume_db = 0.1
 
 [node name="HeldReload" type="Node3D" parent="." node_paths=PackedStringArray("right_animation")]
 script = ExtResource("6_ptqpv")
@@ -176,12 +187,15 @@ skeleton = NodePath("../..")
 [node name="HitArea" type="Area3D" parent="Mesh"]
 monitoring = false
 script = ExtResource("4_o08ta")
+force = 5.0
 
 [node name="CS" type="CollisionShape3D" parent="Mesh/HitArea"]
 transform = Transform3D(1, -2.98023e-08, 5.91172e-12, -1.36424e-12, -4.37112e-08, -1, 0, 1, -4.37112e-08, 0.000201544, -5.00086e-06, 0.0135155)
 shape = SubResource("CylinderShape3D_sectm")
 
-[node name="UI" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -196,7 +210,7 @@ scale = Vector2(0.7, 0.7)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Dash" type="TextureRect" parent="UI"]
+[node name="Dash" type="TextureRect" parent="CanvasLayer/UI"]
 layout_mode = 0
 offset_left = -264.0
 offset_top = -294.0
