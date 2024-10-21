@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://swdx5sfmcoar"
-path="res://.godot/imported/boombox.glb-2177cc80c56659d6eb161df5d6271751.scn"
+uid="uid://d2fy6mwyo0lcs"
+path="res://.godot/imported/shotgun.glb-002db3311ab4ddaddef09a7ccf5918fd.scn"
 
 [deps]
 
-source_file="res://boombox/assets/boombox.glb"
-dest_files=["res://.godot/imported/boombox.glb-2177cc80c56659d6eb161df5d6271751.scn"]
+source_file="res://weapons/shotgun/assets/shotgun.glb"
+dest_files=["res://.godot/imported/shotgun.glb-002db3311ab4ddaddef09a7ccf5918fd.scn"]
 
 [params]
 

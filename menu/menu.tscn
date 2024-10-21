@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bpalwy1th4ww5"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -50.0
+offset_right = 77.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Nickname" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+placeholder_text = "Enter name..."
+alignment = 1
+expand_to_text_length = true
+
+[node name="VSeparator" type="VSeparator" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IP" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+placeholder_text = "Enter IP..."
+alignment = 1
+expand_to_text_length = true
+
+[node name="Button2" type="Button" parent="GridContainer"]
+layout_mode = 2
+text = "Join"

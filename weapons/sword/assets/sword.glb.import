@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://swdx5sfmcoar"
-path="res://.godot/imported/boombox.glb-2177cc80c56659d6eb161df5d6271751.scn"
+uid="uid://d2qpq6b41f3q"
+path="res://.godot/imported/sword.glb-10269062f6fb0b3591bce4ee0e342fbd.scn"
 
 [deps]
 
-source_file="res://boombox/assets/boombox.glb"
-dest_files=["res://.godot/imported/boombox.glb-2177cc80c56659d6eb161df5d6271751.scn"]
+source_file="res://weapons/sword/assets/sword.glb"
+dest_files=["res://.godot/imported/sword.glb-10269062f6fb0b3591bce4ee0e342fbd.scn"]
 
 [params]
 

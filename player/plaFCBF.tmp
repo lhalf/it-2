@@ -11,19 +11,7 @@
 [ext_resource type="Script" path="res://player/hand/hand_sway.gd" id="10_ud8ga"]
 [ext_resource type="Resource" uid="uid://bq42c11rdkebe" path="res://player/hand/hand_sway_values.tres" id="11_521h0"]
 [ext_resource type="PackedScene" uid="uid://dy8bkvq2rsd4e" path="res://player/hand/hand_mesh.tscn" id="12_41au8"]
-[ext_resource type="Script" path="res://components/melee/hit_area.gd" id="12_pepq8"]
 [ext_resource type="AudioStream" uid="uid://b3v7j8q4vot25" path="res://player/assets/tag.ogg" id="14_nrfyq"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2ikbd"]
-properties/0/path = NodePath(".:player")
-properties/0/spawn = true
-properties/0/replication_mode = 0
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:rotation")
-properties/2/spawn = true
-properties/2/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lke12"]
 properties/0/path = NodePath("PlayerInput:left_click")
@@ -42,6 +30,17 @@ properties/4/path = NodePath("PlayerInput:mouse_movement")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2ikbd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:player")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dngy1"]
 render_priority = 0
 shader = ExtResource("7_dwp3b")
@@ -51,6 +50,19 @@ shader_parameter/outline_width = 5.0
 [sub_resource type="SphereMesh" id="SphereMesh_jdd2a"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cndt3"]
+
+[sub_resource type="GDScript" id="GDScript_q737o"]
+script/source = "class_name HitArea extends Area3D
+
+@export var force: float
+
+func _enter_tree() -> void:
+	connect(\"body_entered\", _hit_body_entered)
+
+func _hit_body_entered(body: Node3D) -> void:
+	if body.has_node(\"HitController\"):
+		body.get_node(\"HitController\").on_hit(Vector3(0,0,0), self.global_position.direction_to(body.global_position), force)
+"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8ltuj"]
 radius = 0.451115
@@ -95,17 +107,16 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_k40m3")
 
-[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_2ikbd")
-
 [node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_lke12")
 script = ExtResource("9_6c0fa")
 
-[node name="PlayerKnockback" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2ikbd")
+
+[node name="PlayerKnockback" type="Node" parent="."]
 script = ExtResource("2_1id62")
-player = NodePath("..")
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("5_88j3k")
@@ -119,6 +130,7 @@ knockback = NodePath("../PlayerKnockback")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 material_overlay = SubResource("ShaderMaterial_dngy1")
 mesh = SubResource("SphereMesh_jdd2a")
 
@@ -174,7 +186,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885717, 0, 0)
 [node name="TagArea" type="Area3D" parent="Head/Hands/LeftHandMesh"]
 unique_name_in_owner = true
 monitoring = false
-script = ExtResource("12_pepq8")
+script = SubResource("GDScript_q737o")
+force = 1.0
 
 [node name="CS" type="CollisionShape3D" parent="Head/Hands/LeftHandMesh/TagArea"]
 shape = SubResource("SphereShape3D_8ltuj")
@@ -221,5 +234,3 @@ offset_bottom = 40.0
 [node name="Label" type="Label" parent="CanvasLayer/ScoreBoard"]
 layout_mode = 2
 text = "score_board"
-
-[connection signal="dropped_weapon" from="PlayerInteract" to="." method="_drop_weapon"]

@@ -1,12 +1,20 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
-@export var camera: Camera3D
+# to tell the map to add a weapon
+signal dropped_weapon(name: String, position: Vector3, rotation: Vector3, velocity: Vector3)
 
-func _enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())
+@onready var camera: Camera3D = %Camera
+@onready var player_input: MultiplayerSynchronizer = %PlayerInput
+
+@export var player: int = 1 :
+	set(id):
+		player = id
+		# need $ reference as before ready
+		$PlayerInput.set_multiplayer_authority(id)
 
 func _ready() -> void:
-	camera.current = get_multiplayer_authority() == multiplayer.get_unique_id()
-	set_physics_process(get_multiplayer_authority() == multiplayer.get_unique_id())
-	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
-	set_process_input(get_multiplayer_authority() == multiplayer.get_unique_id())
+	if player == multiplayer.get_unique_id():
+		camera.current = true
+
+func _drop_weapon(weapon: HeldItem) -> void:
+	dropped_weapon.emit(weapon.name, weapon.global_position, weapon.global_rotation, self.velocity)

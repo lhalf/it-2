@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://di1ia03ryycn1"]
+
+[ext_resource type="PackedScene" uid="uid://tqxogc670rex" path="res://weapons/shotgun/shotgun_mesh.tscn" id="1_0ggnw"]
+[ext_resource type="Script" path="res://weapons/common/dropped_item.gd" id="1_pmpgy"]
+[ext_resource type="Script" path="res://components/object/knockback_controller.gd" id="2_2g11w"]
+[ext_resource type="Script" path="res://components/object/hit_controller.gd" id="2_u4x2t"]
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="3_oav1x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u34em"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_oav1x")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 3.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nh4oy"]
+points = PackedVector3Array(0.00390806, 0.000535256, 0.00565, -0.00253526, -0.000635714, -0.00489286, -0.00253526, 0.00112143, -0.00489286, 0.0331929, 0.00170714, 0.0027212, 0.0267495, -0.00239286, 0.00447765, 0.00859377, 0.00229286, 0.00506383, 0.00918086, -0.00239286, 0.00506383, 0.0331929, -0.00180714, 0.0027212, 0.0331929, 0.00170714, 0.00506383, -0.00429286, -0.00122143, -0.00372051, -0.00253526, 0.00112143, 0.000963712, -0.000777653, -0.00122143, -0.00489286, 0.0314353, 0.00229286, 0.00330634, 0.000392857, -0.00122143, 0.00330634, 0.0331929, -0.00180714, 0.00506383, 0.0238214, -0.00122143, 0.00565, -0.000190563, 0.00112143, -0.00489286, 0.00918086, 0.00229286, 0.0027212, 0.0203062, 0.00170714, 0.00565, 0.0255754, -0.00239286, 0.00330634, 0.00859377, -0.00239286, 0.00330634, -0.00429286, 0.00112143, -0.00372051, -0.00370577, -0.00122143, -0.000792743, 0.00390806, -0.000635714, 0.00565, 0.0261624, 0.00229286, 0.00506383, 0.0285071, -0.00122143, 0.00154988, 0.00918086, -0.00180714, 0.00565, -0.00429286, 0.00112143, -0.00196406, 0.000392857, 0.00112143, 0.00330634, 0.0285071, 0.00112143, 0.00154988, 0.00918086, 0.00170714, 0.00565, 0.0191357, -0.00239286, 0.00506383)
+
+[node name="Shotgun" type="RigidBody3D" node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_pmpgy")
+mesh = NodePath("Mesh")
+
+[node name="Mesh" parent="." instance=ExtResource("1_0ggnw")]
+material_overlay = SubResource("ShaderMaterial_u34em")
+
+[node name="CS" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1.74846e-06, -40, -1.74846e-06, 0, -1.74846e-06, 40, -40, 1.74846e-06, 7.64274e-14, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_nh4oy")
+
+[node name="HitController" type="Node3D" parent="." node_paths=PackedStringArray("controllers")]
+script = ExtResource("2_u4x2t")
+controllers = [NodePath("../KnockbackController")]
+
+[node name="KnockbackController" type="Node3D" parent="."]
+script = ExtResource("2_2g11w")
